@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=PT+Sans:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --parchment: #f5ecd9;
+    --parchment-dark: #e8dec5;
+    --ink: #262626;
+    --crimson: #c93e3e;
+    --gold: #b8860b;
+    --gold-light: #d4a520;
+    --radius: 0.5rem;
+  }
+
+  body {
+    font-family: 'PT Serif', serif;
+    background-color: var(--parchment);
+    color: var(--ink);
+    background-image: url('/images/scroll-bg.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'MedievalSharp', cursive;
+  }
+
+  ::selection {
+    background: rgba(201, 62, 62, 0.3);
+    color: var(--ink);
+  }
+}
+
+@layer components {
+  .frame-ornate {
+    border: 3px solid var(--gold);
+    border-radius: 4px;
+    position: relative;
+    box-shadow: 
+      inset 0 0 0 2px var(--parchment),
+      inset 0 0 0 4px var(--gold),
+      0 4px 20px rgba(38, 38, 38, 0.3);
+    padding: 6px;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+  }
+
+  .frame-ornate-inner {
+    border: 1px solid var(--gold);
+    border-radius: 2px;
+    overflow: hidden;
+    background: var(--parchment);
+  }
+
+  .btn-medieval {
+    font-family: 'MedievalSharp', cursive;
+    background: var(--crimson);
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    border: 2px solid rgba(255,255,255,0.2);
+    box-shadow: 0 4px 15px rgba(201, 62, 62, 0.4);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  .btn-medieval:hover {
+    background: #a83232;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(201, 62, 62, 0.5);
+  }
+
+  .card-medieval {
+    background: rgba(245, 236, 217, 0.95);
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(38, 38, 38, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .card-medieval:hover {
+    box-shadow: 0 8px 30px rgba(184, 134, 11, 0.25);
+    border-color: var(--gold-light);
+  }
+
+  .section-title {
+    font-family: 'MedievalSharp', cursive;
+    font-size: 2.5rem;
+    color: var(--ink);
+    text-shadow: 2px 2px 0px rgba(184, 134, 11, 0.3);
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+  }
+
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 50%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .divider-ornate {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 2rem 0;
+  }
+
+  .nav-link {
+    font-family: 'PT Sans', sans-serif;
+    font-weight: 700;
+    color: var(--ink);
+    transition: color 0.2s ease;
+    position: relative;
+  }
+
+  .nav-link:hover {
+    color: var(--crimson);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--crimson);
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .text-parchment {
+    color: var(--parchment);
+  }
+
+  .bg-parchment {
+    background-color: var(--parchment);
+  }
+
+  .text-crimson {
+    color: var(--crimson);
+  }
+
+  .text-gold {
+    color: var(--gold);
+  }
+
+  .border-gold {
+    border-color: var(--gold);
+  }
+
+  .bg-ink {
+    background-color: var(--ink);
+  }
+
+  .scrollbar-medieval::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .scrollbar-medieval::-webkit-scrollbar-track {
+    background: var(--parchment-dark);
+  }
+
+  .scrollbar-medieval::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 4px;
+  }
+
+  .bg-parchment-95 {
+    background-color: rgba(245, 236, 217, 0.95);
+  }
+}
