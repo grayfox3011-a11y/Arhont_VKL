@@ -7,7 +7,10 @@ import { createRouter, publicQuery, adminQuery } from "../middleware";
 export const heroRouter = createRouter({
   list: publicQuery.query(async () => {
     const db = getDb();
-    return db.select().from(heroes).orderBy(asc(heroes.orderIdx));
+    console.log("DATABASE_URL:", process.env.DATABASE_URL); // ← добавьте
+    const result = await db.select().from(heroes).orderBy(asc(heroes.orderIdx));
+    console.log("Heroes result:", result.length, result); // ← добавьте
+    return result;
   }),
 
   getById: publicQuery
