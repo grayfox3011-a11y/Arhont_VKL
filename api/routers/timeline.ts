@@ -15,7 +15,7 @@ export const timelineRouter = createRouter({
         .optional()
     )
     .query(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       let query = db
         .select()
         .from(timelineEvents)
@@ -56,7 +56,7 @@ export const timelineRouter = createRouter({
       })
     )
     .mutation(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       return db.insert(timelineEvents).values(input);
     }),
 
@@ -79,14 +79,14 @@ export const timelineRouter = createRouter({
     )
     .mutation(async ({ input }) => {
       const { id, ...data } = input;
-      const db = getDb();
+      const db = await getDb();
       return db.update(timelineEvents).set(data).where(eq(timelineEvents.id, id));
     }),
 
   delete: adminQuery
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       await db.delete(timelineEvents).where(eq(timelineEvents.id, input.id));
       return { success: true };
     }),
