@@ -10,6 +10,7 @@ import { contactRouter } from "./routers/contact";
 import { adminRouter } from "./routers/admin";
 import { chatRouter } from "./routers/chat";
 import { createRouter, publicQuery } from "./middleware";
+import { debugRouter } from "./routers/debug";
 
 export const appRouter = createRouter({
   ping: publicQuery.query(() => ({ ok: true, ts: Date.now() })),
@@ -24,6 +25,7 @@ export const appRouter = createRouter({
   contact: contactRouter,
   admin: adminRouter,
   chat: chatRouter,
+  debug: debugRouter,
 });
 
 export type AppRouter = typeof appRouter;
