@@ -13,7 +13,7 @@ export const chatRouter = createRouter({
       })
     )
     .mutation(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
 
       // Store user message
       await db.insert(chatMessages).values({
@@ -90,7 +90,7 @@ export const chatRouter = createRouter({
   history: publicQuery
     .input(z.object({ sessionId: z.string() }))
     .query(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       return db
         .select()
         .from(chatMessages)

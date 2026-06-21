@@ -5,7 +5,8 @@ import { getDb } from "./connection";
 import { env } from "../lib/env";
 
 export async function findUserByUnionId(unionId: string) {
-  const rows = await getDb()
+  const db = await getDb();  // <-- добавлен await
+  const rows = await db
     .select()
     .from(schema.users)
     .where(eq(schema.users.unionId, unionId))
@@ -14,6 +15,7 @@ export async function findUserByUnionId(unionId: string) {
 }
 
 export async function upsertUser(data: InsertUser) {
+  const db = await getDb();  // <-- добавлен await
   const values = { ...data };
   const updateSet: Partial<InsertUser> = {
     lastSignInAt: new Date(),
@@ -29,8 +31,11 @@ export async function upsertUser(data: InsertUser) {
     updateSet.role = "admin";
   }
 
-  await getDb()
+  await db
     .insert(schema.users)
     .values(values)
-    .onDuplicateKeyUpdate({ set: updateSet });
+    .onConflictDoUpdate({  // <-- ИСПРАВЛЕНО для PostgreSQL
+      target: schema.users.unionId,
+      set: updateSet,
+    });
 }

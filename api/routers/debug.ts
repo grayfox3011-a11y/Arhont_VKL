@@ -3,7 +3,7 @@ import { createRouter, publicQuery } from "../middleware";
 
 export const debugRouter = createRouter({
   checkDb: publicQuery.query(async () => {
-    const db = getDb();
+    const db = await getDb();
     
     try {
       const tables = await db.execute(

@@ -6,7 +6,7 @@ import { createRouter, publicQuery, adminQuery } from "../middleware";
 
 export const heroRouter = createRouter({
   list: publicQuery.query(async () => {
-    const db = getDb();
+    const db = await getDb();
     console.log("DATABASE_URL:", process.env.DATABASE_URL); // ← добавьте
     const result = await db.select().from(heroes).orderBy(asc(heroes.orderIdx));
     console.log("Heroes result:", result.length, result); // ← добавьте
@@ -16,7 +16,7 @@ export const heroRouter = createRouter({
   getById: publicQuery
     .input(z.object({ id: z.number() }))
     .query(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       const result = await db
         .select()
         .from(heroes)
@@ -48,7 +48,7 @@ export const heroRouter = createRouter({
       })
     )
     .mutation(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       const result = await db.insert(heroes).values(input);
       return result;
     }),
@@ -78,7 +78,7 @@ export const heroRouter = createRouter({
     )
     .mutation(async ({ input }) => {
       const { id, ...data } = input;
-      const db = getDb();
+      const db = await getDb();
       const result = await db.update(heroes).set(data).where(eq(heroes.id, id));
       return result;
     }),
@@ -86,7 +86,7 @@ export const heroRouter = createRouter({
   delete: adminQuery
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       await db.delete(heroes).where(eq(heroes.id, input.id));
       return { success: true };
     }),

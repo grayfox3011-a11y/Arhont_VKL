@@ -16,7 +16,7 @@ import { createRouter, adminQuery } from "../middleware";
 
 export const adminRouter = createRouter({
   stats: adminQuery.query(async () => {
-    const db = getDb();
+    const db = await getDb();
 
     const [heroCount] = await db.select({ count: sql<number>`count(*)` }).from(heroes);
     const [battleCount] = await db.select({ count: sql<number>`count(*)` }).from(battles);
@@ -46,7 +46,7 @@ export const adminRouter = createRouter({
   }),
 
   users: adminQuery.query(async () => {
-    const db = getDb();
+    const db = await getDb();
     const oauthUsers = await db.select().from(users);
     const local = await db.select({
       id: localUsers.id,
@@ -86,7 +86,7 @@ export const adminRouter = createRouter({
       })
     )
     .mutation(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       if (input.authType === "oauth") {
         await db.update(users).set({ role: input.role }).where(eq(users.id, input.id));
       } else {

@@ -15,7 +15,7 @@ export const mediaRouter = createRouter({
         .optional()
     )
     .query(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       const all = await db.select().from(media).orderBy(asc(media.createdAt));
       if (!input) return all;
       return all.filter((m) => {
@@ -28,7 +28,7 @@ export const mediaRouter = createRouter({
   getById: publicQuery
     .input(z.object({ id: z.number() }))
     .query(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       const result = await db
         .select()
         .from(media)
@@ -53,7 +53,7 @@ export const mediaRouter = createRouter({
       })
     )
     .mutation(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       return db.insert(media).values(input);
     }),
 
@@ -75,14 +75,14 @@ export const mediaRouter = createRouter({
     )
     .mutation(async ({ input }) => {
       const { id, ...data } = input;
-      const db = getDb();
+      const db = await getDb();
       return db.update(media).set(data).where(eq(media.id, id));
     }),
 
   delete: adminQuery
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       await db.delete(media).where(eq(media.id, input.id));
       return { success: true };
     }),

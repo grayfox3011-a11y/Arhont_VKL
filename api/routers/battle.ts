@@ -6,14 +6,14 @@ import { createRouter, publicQuery, adminQuery } from "../middleware";
 
 export const battleRouter = createRouter({
   list: publicQuery.query(async () => {
-    const db = getDb();
+    const db = await getDb();
     return db.select().from(battles).orderBy(asc(battles.orderIdx));
   }),
 
   getById: publicQuery
     .input(z.object({ id: z.number() }))
     .query(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       const result = await db
         .select()
         .from(battles)
@@ -50,7 +50,7 @@ export const battleRouter = createRouter({
       })
     )
     .mutation(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       return db.insert(battles).values(input);
     }),
 
@@ -84,14 +84,14 @@ export const battleRouter = createRouter({
     )
     .mutation(async ({ input }) => {
       const { id, ...data } = input;
-      const db = getDb();
+      const db = await getDb();
       return db.update(battles).set(data).where(eq(battles.id, id));
     }),
 
   delete: adminQuery
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       await db.delete(battles).where(eq(battles.id, input.id));
       return { success: true };
     }),

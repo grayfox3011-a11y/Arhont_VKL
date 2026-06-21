@@ -15,19 +15,19 @@ export const contactRouter = createRouter({
       })
     )
     .mutation(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       return db.insert(contactMessages).values(input);
     }),
 
   list: adminQuery.query(async () => {
-    const db = getDb();
+    const db = await getDb();
     return db.select().from(contactMessages).orderBy(desc(contactMessages.createdAt));
   }),
 
   markRead: adminQuery
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       return db
         .update(contactMessages)
         .set({ isRead: true })
@@ -37,7 +37,7 @@ export const contactRouter = createRouter({
   delete: adminQuery
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       await db.delete(contactMessages).where(eq(contactMessages.id, input.id));
       return { success: true };
     }),

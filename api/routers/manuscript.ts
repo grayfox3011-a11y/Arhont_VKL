@@ -8,7 +8,7 @@ export const manuscriptRouter = createRouter({
   list: publicQuery
     .input(z.object({ category: z.string().optional() }).optional())
     .query(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       const all = await db.select().from(manuscripts).orderBy(asc(manuscripts.year));
       if (input?.category) {
         return all.filter((m) => m.category === input.category);
@@ -19,7 +19,7 @@ export const manuscriptRouter = createRouter({
   getById: publicQuery
     .input(z.object({ id: z.number() }))
     .query(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       const result = await db
         .select()
         .from(manuscripts)
@@ -48,7 +48,7 @@ export const manuscriptRouter = createRouter({
       })
     )
     .mutation(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       return db.insert(manuscripts).values(input);
     }),
 
@@ -74,14 +74,14 @@ export const manuscriptRouter = createRouter({
     )
     .mutation(async ({ input }) => {
       const { id, ...data } = input;
-      const db = getDb();
+      const db = await getDb();
       return db.update(manuscripts).set(data).where(eq(manuscripts.id, id));
     }),
 
   delete: adminQuery
     .input(z.object({ id: z.number() }))
     .mutation(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
       await db.delete(manuscripts).where(eq(manuscripts.id, input.id));
       return { success: true };
     }),

@@ -18,7 +18,7 @@ export const localAuthRouter = createRouter({
       })
     )
     .mutation(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
 
       // Check if username already exists
       const existing = await db
@@ -54,7 +54,7 @@ export const localAuthRouter = createRouter({
       })
     )
     .mutation(async ({ input }) => {
-      const db = getDb();
+      const db = await getDb();
 
       const users = await db
         .select()
