@@ -17,7 +17,7 @@ async function seed() {
   // ─── Seed Heroes ────────────────────────────────────────────────
   try {
     const heroesCount = await db.select({ count: sql<number>`count(*)` }).from(heroes);
-    const count = heroesCount[0]?.count ?? 0;
+    const count = Number(heroesCount[0]?.count ?? 0);
     console.log(`[Heroes] Count before: ${count}`);
 
     if (count === 0) {
@@ -41,7 +41,6 @@ async function seed() {
           imageUrl: "/images/hero-vitovt.jpg",
           orderIdx: 1,
         },
-        // ... остальные герои
         {
           name: "Константин Иванович Острожский",
           nameBe: "Канстантын Іванавіч Астроскі",
@@ -121,7 +120,7 @@ async function seed() {
       ]);
       
       const check = await db.select({ count: sql<number>`count(*)` }).from(heroes);
-      console.log(`[Heroes] Inserted! Count after: ${check[0].count}`);
+      console.log(`[Heroes] Inserted! Count after: ${Number(check[0].count)}`);
     } else {
       console.log("[Heroes] Already exist, skipping");
     }
@@ -132,7 +131,7 @@ async function seed() {
   // ─── Seed Battles ───────────────────────────────────────────────
   try {
     const battlesCount = await db.select({ count: sql<number>`count(*)` }).from(battles);
-    const count = battlesCount[0]?.count ?? 0;
+    const count = Number(battlesCount[0]?.count ?? 0);
     console.log(`[Battles] Count before: ${count}`);
 
     if (count === 0) {
@@ -212,7 +211,7 @@ async function seed() {
       ]);
       
       const check = await db.select({ count: sql<number>`count(*)` }).from(battles);
-      console.log(`[Battles] Inserted! Count after: ${check[0].count}`);
+      console.log(`[Battles] Inserted! Count after: ${Number(check[0].count)}`);
     } else {
       console.log("[Battles] Already exist, skipping");
     }
@@ -223,7 +222,7 @@ async function seed() {
   // ─── Seed Timeline Events ───────────────────────────────────────
   try {
     const eventsCount = await db.select({ count: sql<number>`count(*)` }).from(timelineEvents);
-    const count = eventsCount[0]?.count ?? 0;
+    const count = Number(eventsCount[0]?.count ?? 0);
     console.log(`[Timeline] Count before: ${count}`);
 
     if (count === 0) {
@@ -240,7 +239,7 @@ async function seed() {
       ]);
       
       const check = await db.select({ count: sql<number>`count(*)` }).from(timelineEvents);
-      console.log(`[Timeline] Inserted! Count after: ${check[0].count}`);
+      console.log(`[Timeline] Inserted! Count after: ${Number(check[0].count)}`);
     } else {
       console.log("[Timeline] Already exist, skipping");
     }
@@ -251,7 +250,7 @@ async function seed() {
   // ─── Seed Manuscripts ───────────────────────────────────────────
   try {
     const manuscriptsCount = await db.select({ count: sql<number>`count(*)` }).from(manuscripts);
-    const count = manuscriptsCount[0]?.count ?? 0;
+    const count = Number(manuscriptsCount[0]?.count ?? 0);
     console.log(`[Manuscripts] Count before: ${count}`);
 
     if (count === 0) {
@@ -291,7 +290,7 @@ async function seed() {
       ]);
       
       const check = await db.select({ count: sql<number>`count(*)` }).from(manuscripts);
-      console.log(`[Manuscripts] Inserted! Count after: ${check[0].count}`);
+      console.log(`[Manuscripts] Inserted! Count after: ${Number(check[0].count)}`);
     } else {
       console.log("[Manuscripts] Already exist, skipping");
     }
@@ -302,7 +301,7 @@ async function seed() {
   // ─── Seed Castles ───────────────────────────────────────────────
   try {
     const castlesCount = await db.select({ count: sql<number>`count(*)` }).from(castles);
-    const count = castlesCount[0]?.count ?? 0;
+    const count = Number(castlesCount[0]?.count ?? 0);
     console.log(`[Castles] Count before: ${count}`);
 
     if (count === 0) {
@@ -346,7 +345,7 @@ async function seed() {
       ]);
       
       const check = await db.select({ count: sql<number>`count(*)` }).from(castles);
-      console.log(`[Castles] Inserted! Count after: ${check[0].count}`);
+      console.log(`[Castles] Inserted! Count after: ${Number(check[0].count)}`);
     } else {
       console.log("[Castles] Already exist, skipping");
     }
@@ -357,7 +356,7 @@ async function seed() {
   // ─── Seed Media ─────────────────────────────────────────────────
   try {
     const mediaCount = await db.select({ count: sql<number>`count(*)` }).from(media);
-    const count = mediaCount[0]?.count ?? 0;
+    const count = Number(mediaCount[0]?.count ?? 0);
     console.log(`[Media] Count before: ${count}`);
 
     if (count === 0) {
@@ -369,7 +368,7 @@ async function seed() {
       ]);
       
       const check = await db.select({ count: sql<number>`count(*)` }).from(media);
-      console.log(`[Media] Inserted! Count after: ${check[0].count}`);
+      console.log(`[Media] Inserted! Count after: ${Number(check[0].count)}`);
     } else {
       console.log("[Media] Already exist, skipping");
     }
@@ -386,12 +385,12 @@ async function seed() {
   const finalCastles = await db.select({ count: sql<number>`count(*)` }).from(castles);
   const finalMedia = await db.select({ count: sql<number>`count(*)` }).from(media);
 
-  console.log(`Heroes:        ${finalHeroes[0].count}`);
-  console.log(`Battles:       ${finalBattles[0].count}`);
-  console.log(`Timeline:      ${finalEvents[0].count}`);
-  console.log(`Manuscripts:   ${finalManuscripts[0].count}`);
-  console.log(`Castles:       ${finalCastles[0].count}`);
-  console.log(`Media:         ${finalMedia[0].count}`);
+  console.log(`Heroes:        ${Number(finalHeroes[0].count)}`);
+  console.log(`Battles:       ${Number(finalBattles[0].count)}`);
+  console.log(`Timeline:      ${Number(finalEvents[0].count)}`);
+  console.log(`Manuscripts:   ${Number(finalManuscripts[0].count)}`);
+  console.log(`Castles:       ${Number(finalCastles[0].count)}`);
+  console.log(`Media:         ${Number(finalMedia[0].count)}`);
   console.log("=== SEED COMPLETED ===");
 }
 
