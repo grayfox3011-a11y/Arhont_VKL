@@ -27,7 +27,7 @@ export async function verifyLocalToken(headers: Headers) {
     const userId = Number(payload.sub);
     if (!userId) return null;
 
-    const db = getDb();
+    const db = await getDb();  // <-- ИСПРАВЛЕНО: добавлен await
     const user = await db
       .select()
       .from(localUsers)
