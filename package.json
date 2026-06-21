@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && cp -r api dist/api && cp -r db dist/db",
-    "start": "NODE_ENV=production npx tsx db/seed.ts && NODE_ENV=production npx tsx api/boot.ts",
+    "start": "NODE_ENV=production npx drizzle-kit push && NODE_ENV=production npx tsx db/seed.ts && NODE_ENV=production npx tsx api/boot.ts",
     "lint": "eslint .",
     "preview": "vite preview",
     "check": "tsc -b",
