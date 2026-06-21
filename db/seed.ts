@@ -145,7 +145,7 @@ async function createTables(db: any) {
 }
 
 async function seed() {
-  const db = getDb();
+  const db = await getDb(); // ← добавьте await
   console.log("=== SEED START ===");
   console.log("DB type:", db.constructor.name);
 

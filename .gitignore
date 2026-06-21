@@ -40,3 +40,4 @@ build/
 coverage/
 .nyc_output/
 .env.local
+api/queries/connection.dev.ts
