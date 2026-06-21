@@ -9,6 +9,10 @@ import {
 } from "./schema";
 import { sql } from "drizzle-orm";
 
+async function seed() {
+  const db = await getDb();
+  console.log("=== SEED START ===");
+  console.log("DB type:", db.constructor.name);
 
   // ─── Seed Heroes ────────────────────────────────────────────────
   try {
@@ -37,6 +41,7 @@ import { sql } from "drizzle-orm";
           imageUrl: "/images/hero-vitovt.jpg",
           orderIdx: 1,
         },
+        // ... остальные герои
         {
           name: "Константин Иванович Острожский",
           nameBe: "Канстантын Іванавіч Астроскі",
