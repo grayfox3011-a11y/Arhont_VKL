@@ -49,8 +49,8 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#262626]/95 backdrop-blur-md shadow-lg"
-          : "bg-transparent"
+          ? "bg-[#1a1510]/90 backdrop-blur-md shadow-lg border-b border-[#b8860b]/20"
+          : "bg-[#1a1510]/60 backdrop-blur-sm border-b border-[#b8860b]/10"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -58,14 +58,10 @@ export default function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
             <Shield
-              className={`w-8 h-8 transition-colors ${
-                scrolled ? "text-[#b8860b]" : "text-[#b8860b]"
-              } group-hover:text-[#c93e3e]`}
+              className="w-8 h-8 text-[#b8860b] group-hover:text-[#c93e3e] transition-colors"
             />
             <span
-              className={`font-['MedievalSharp'] text-lg hidden sm:block transition-colors ${
-                scrolled ? "text-[#f5ecd9]" : "text-[#262626]"
-              }`}
+              className="font-['MedievalSharp'] text-lg hidden sm:block text-[#f5ecd9] group-hover:text-[#b8860b] transition-colors"
             >
               Архонт ВКЛ
             </span>
@@ -77,9 +73,9 @@ export default function Header() {
               <Link
                 key={link.to}
                 to={link.to}
-                className={`nav-link text-sm ${
-                  scrolled ? "text-[#f5ecd9]" : "text-[#262626]"
-                } ${location.pathname === link.to ? "text-[#c93e3e]" : ""}`}
+                className={`nav-link text-sm text-[#f5ecd9] hover:text-[#b8860b] transition-colors ${
+                  location.pathname === link.to ? "text-[#c93e3e]" : ""
+                }`}
               >
                 {link.label}
               </Link>
@@ -92,16 +88,12 @@ export default function Header() {
             <div className="relative">
               <button
                 onClick={() => setLangOpen(!langOpen)}
-                className={`p-2 rounded-full transition-colors ${
-                  scrolled
-                    ? "text-[#f5ecd9] hover:text-[#b8860b]"
-                    : "text-[#262626] hover:text-[#c93e3e]"
-                }`}
+                className="p-2 rounded-full text-[#f5ecd9] hover:text-[#b8860b] transition-colors"
               >
                 <Globe className="w-5 h-5" />
               </button>
               {langOpen && (
-                <div className="absolute right-0 mt-2 bg-[#262626] rounded-lg shadow-xl py-1 min-w-[80px]">
+                <div className="absolute right-0 mt-2 bg-[#1a1510]/95 backdrop-blur-md rounded-lg shadow-xl py-1 min-w-[80px] border border-[#b8860b]/20">
                   {languages.map((lang) => (
                     <button
                       key={lang.code}
@@ -126,11 +118,7 @@ export default function Header() {
             {isAdmin && (
               <Link
                 to="/admin"
-                className={`p-2 rounded-full transition-colors ${
-                  scrolled
-                    ? "text-[#f5ecd9] hover:text-[#b8860b]"
-                    : "text-[#262626] hover:text-[#c93e3e]"
-                }`}
+                className="p-2 rounded-full text-[#f5ecd9] hover:text-[#b8860b] transition-colors"
               >
                 <Settings className="w-5 h-5" />
               </Link>
@@ -139,20 +127,12 @@ export default function Header() {
             {/* Auth */}
             {isAuthenticated ? (
               <div className="flex items-center gap-2">
-                <span
-                  className={`hidden sm:block text-sm ${
-                    scrolled ? "text-[#f5ecd9]" : "text-[#262626]"
-                  }`}
-                >
+                <span className="hidden sm:block text-sm text-[#f5ecd9]">
                   {user?.name}
                 </span>
                 <button
                   onClick={logout}
-                  className={`p-2 rounded-full transition-colors ${
-                    scrolled
-                      ? "text-[#f5ecd9] hover:text-[#c93e3e]"
-                      : "text-[#262626] hover:text-[#c93e3e]"
-                  }`}
+                  className="p-2 rounded-full text-[#f5ecd9] hover:text-[#c93e3e] transition-colors"
                   title={t("nav.logout")}
                 >
                   <LogOut className="w-5 h-5" />
@@ -161,11 +141,7 @@ export default function Header() {
             ) : (
               <Link
                 to="/login"
-                className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-sm transition-colors ${
-                  scrolled
-                    ? "bg-[#c93e3e] text-white hover:bg-[#a83232]"
-                    : "bg-[#c93e3e] text-white hover:bg-[#a83232]"
-                }`}
+                className="flex items-center gap-1 px-3 py-1.5 rounded-full text-sm bg-[#c93e3e] text-white hover:bg-[#a83232] transition-colors"
               >
                 <LogIn className="w-4 h-4" />
                 <span className="hidden sm:inline">{t("nav.login")}</span>
@@ -175,11 +151,7 @@ export default function Header() {
             {/* Mobile menu button */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className={`lg:hidden p-2 rounded-full transition-colors ${
-                scrolled
-                  ? "text-[#f5ecd9]"
-                  : "text-[#262626]"
-              }`}
+              className="lg:hidden p-2 rounded-full text-[#f5ecd9] transition-colors"
             >
               {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -189,7 +161,7 @@ export default function Header() {
 
       {/* Mobile Nav */}
       {mobileOpen && (
-        <div className="lg:hidden bg-[#262626]/95 backdrop-blur-md border-t border-[#b8860b]/20">
+        <div className="lg:hidden bg-[#1a1510]/95 backdrop-blur-md border-t border-[#b8860b]/20">
           <nav className="px-4 py-3 space-y-1">
             {navLinks.map((link) => (
               <Link
